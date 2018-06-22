@@ -1,0 +1,35 @@
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {StickyModalService, StickyPositionStrategy} from 'ngx-sticky-modal';
+import {ModalComponent} from '../modal/modal.component';
+
+@Component({
+    selector: 'app-relative-selection',
+    templateUrl: 'app-relative-selection.component.html'
+})
+
+export class RelativeSelectionComponent implements OnInit {
+    @ViewChild('node') node: ElementRef;
+
+    constructor(private ngxStickyModalService: StickyModalService) {
+    }
+
+    ngOnInit() {
+    }
+
+    onMouseUp(event: MouseEvent) {
+        const sel = window.getSelection();
+
+        const elementBoundingRect = sel.getRangeAt(0).getBoundingClientRect();
+
+        this.ngxStickyModalService.open({
+            component: ModalComponent,
+            positionStrategy: {
+                name: StickyPositionStrategy.coordinate,
+                options: {
+                    clientX: event.clientX,
+                    clientY: event.clientY
+                }
+            }
+        });
+    }
+}
