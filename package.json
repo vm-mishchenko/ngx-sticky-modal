@@ -8,6 +8,7 @@
         "test": "ng test ngx-sticky-modal",
         "lint": "ng lint ngx-sticky-modal",
         "e2e": "ng e2e",
+        "gh": "ng build --stats-json --prod --base-href /ngx-sticky-modal/",
         "test:cli": "ng test ngx-sticky-modal --watch=false --code-coverage --no-progress --browsers=ChromeNoSandbox",
         "test:once": "ng test ngx-sticky-modal --watch=false --code-coverage",
         "release": "npm run lint && npm run test:once && ng build ngx-sticky-modal --prod",
