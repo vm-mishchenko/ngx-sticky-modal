@@ -1,27 +1,80 @@
-# NgxStickyModalApp
+# ngx-sticky-modal
+[![npm version](https://badge.fury.io/js/ngx-sticky-modal.svg)](https://www.npmjs.com/package/ngx-sticky-modal)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
+## What
+`ngx-sticky-modal` allows to show modals relative to a dom element or particular coordinate. Perfect suits for showing context menus, tooltips, etc.  
 
-## Development server
+## Demo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Features
+`ngx-sticky-modal` is angular library based on angular-cli project. Under the hood it heavily uses the `@angular/cdk` package for calculating the modal coordinate.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to use
+####Install package
+```
+npm install ngx-sticky-modal
+```
 
-## Build
+#### Add `StickyModalModule` as dependency
+```typescript
+import {StickyModalModule} from 'ngx-sticky-modal';
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+@NgModule({
+    imports: [
+        StickyModalModule
+    ]
+})
+export class AppModule {
+}
+```
 
-## Running unit tests
+#### Show modal
+```js
+import {StickyModalService, StickyPositionStrategy} from 'ngx-sticky-modal';
+import {ModalComponent} from './modal.component';
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@Component({
+    selector: 'app-button',
+    template: '<button #btn (click)="showModal()"></button>'
+})
 
-## Running end-to-end tests
+export class RelativeSelectionComponent implements OnInit {
+    @ViewChild('btn') btn: ElementRef;
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+    constructor(private ngxStickyModalService: StickyModalService) {
+    }
 
-## Further help
+    showModal(event: MouseEvent) {
+        // show modal relative to #btn coordinate 
+        this.ngxStickyModalService.open({
+            component: ModalComponent,
+            positionStrategy: {
+                name: StickyPositionStrategy.flexibleConnected,
+                options: {
+                    relativeTo: this.btn.nativeElement
+                }
+            }
+        });
+        
+        // show modal relative to viewport coordinate
+        this.ngxStickyModalService.open({
+            component: ModalComponent,
+            positionStrategy: {
+                name: StickyPositionStrategy.coordinate,
+                options: {
+                    clientX: 50,
+                    clientY: 50
+                }
+            }
+        });
+    }
+}
+```
+#### Add style
+`ngx-sticky-modal` does not provide own css style file. As soon as library depends on `@angular/cdk` you could easily add style from it:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```typescript
+@import '~@angular/cdk/overlay';
+@include cdk-overlay;
+```

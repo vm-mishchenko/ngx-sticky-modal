@@ -17,10 +17,6 @@ export class RelativeSelectionComponent implements OnInit {
     }
 
     onMouseUp(event: MouseEvent) {
-        const sel = window.getSelection();
-
-        const elementBoundingRect = sel.getRangeAt(0).getBoundingClientRect();
-
         this.ngxStickyModalService.open({
             component: ModalComponent,
             positionStrategy: {
