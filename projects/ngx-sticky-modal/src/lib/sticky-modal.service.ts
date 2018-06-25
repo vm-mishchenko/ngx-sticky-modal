@@ -2,11 +2,11 @@ import {Overlay, OverlayConfig} from '@angular/cdk/overlay';
 import {OverlayRef} from '@angular/cdk/overlay/typings/overlay-ref';
 import {ComponentPortal, PortalInjector} from '@angular/cdk/portal';
 import {Injectable, Injector} from '@angular/core';
-import {IStickyModalConfig, StickyFlexiblePositionStrategy, StickyPositionStrategy} from './sticky-modal-config.interface';
+import {CoordinatePositionStrategy} from './position-strategies/coordinate-position-strategy';
+import {IStickyModalConfig, StickyPositionStrategy} from './sticky-modal-config.interface';
 import {StickyModalRef} from './sticky-modal-ref';
 import {DEFAULT_MODAL_CLOSE_ON_ESCAPE, DEFAULT_MODAL_OVERLAY_CONFIG, DEFAULT_POSITION} from './sticky-modal.config';
 import {STICKY_MODAL_DATA} from './sticky-modal.tokens';
-import {CoordinatePositionStrategy} from './position-strategies/coordinate-position-strategy';
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +32,11 @@ export class StickyModalService {
         overlayRef.attach(filePreviewPortal);
 
         this.setUpEventHandlers(overlayRef, modalRef, config);
+
+        // animate dialog
+        requestAnimationFrame(() => {
+            overlayRef.overlayElement.classList.add('cdk-overlay-pane__show');
+        });
 
         return modalRef;
     }
@@ -59,10 +64,8 @@ export class StickyModalService {
 
     private setUpEventHandlers(overlayRef: OverlayRef,
                                modalRef: StickyModalRef,
-                               config: IStickyModalConfig ) {
+                               config: IStickyModalConfig) {
         overlayRef.backdropClick().subscribe(_ => modalRef.dismiss());
-
-        console.log(`setUpEventHandlers`);
 
         function onKeyDownHandler(event: KeyboardEvent) {
             if (event.keyCode === 27) {
