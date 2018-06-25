@@ -5,7 +5,7 @@
 `ngx-sticky-modal` allows to show modals relative to a dom element or particular coordinate. Perfect suits for showing context menus, tooltips, etc.  
 
 ## Demo
-
+https://vm-mishchenko.github.io/ngx-sticky-modal
 
 ## Features
 `ngx-sticky-modal` is angular library based on angular-cli project. Under the hood it heavily uses the `@angular/cdk` package for calculating the modal coordinate.
