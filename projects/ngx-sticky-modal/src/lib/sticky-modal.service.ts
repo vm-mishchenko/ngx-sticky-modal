@@ -8,9 +8,7 @@ import {StickyModalRef} from './sticky-modal-ref';
 import {DEFAULT_MODAL_CLOSE_ON_ESCAPE, DEFAULT_MODAL_OVERLAY_CONFIG, DEFAULT_POSITION} from './sticky-modal.config';
 import {STICKY_MODAL_DATA} from './sticky-modal.tokens';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class StickyModalService {
     constructor(private overlay: Overlay, private injector: Injector) {
     }
