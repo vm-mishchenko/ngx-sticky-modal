@@ -26,16 +26,13 @@ export class CoordinatePositionStrategy implements PositionStrategy {
 
     /** Updates the position of the overlay element. */
     apply(): void {
-        console.log(`apply coordinate position strategy`);
     }
 
     /** Called when the overlay is detached. */
     detach(): void {
-        console.log(`detach coordinate position strategy`);
     }
 
     /** Cleans up any DOM modifications made by the position strategy, if necessary. */
     dispose(): void {
-        console.log(`dispose coordinate position strategy`);
     }
 }

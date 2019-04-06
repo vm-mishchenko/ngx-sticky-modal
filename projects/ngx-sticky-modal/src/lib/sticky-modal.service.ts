@@ -24,7 +24,7 @@ export class StickyModalService {
         const injector = this.createInjector(config, modalRef);
 
         // Create ComponentPortal that can be attached to a PortalHost
-        const filePreviewPortal = new ComponentPortal(config.component, null, injector);
+        const filePreviewPortal = new ComponentPortal(config.component, null, injector, config.componentFactoryResolver);
 
         // Attach ComponentPortal to PortalHost
         overlayRef.attach(filePreviewPortal);

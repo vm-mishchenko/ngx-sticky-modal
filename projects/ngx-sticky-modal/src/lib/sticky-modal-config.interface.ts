@@ -1,6 +1,6 @@
 import {OverlayConfig} from '@angular/cdk/overlay';
 import {ConnectedPosition} from '@angular/cdk/overlay/typings/position/flexible-connected-position-strategy';
-import {ElementRef} from '@angular/core';
+import {ComponentFactoryResolver, ElementRef} from '@angular/core';
 
 export enum StickyPositionStrategy {
     flexibleConnected = 'flexibleConnected',
@@ -27,6 +27,7 @@ export interface StickyCoordinatePositionStrategy {
 export interface IStickyModalConfig {
     component: any;
     positionStrategy: StickyFlexiblePositionStrategy | StickyCoordinatePositionStrategy;
+    componentFactoryResolver: ComponentFactoryResolver;
     closeOnEscape?: boolean;
     data?: object;
     position?: ConnectedPosition;
